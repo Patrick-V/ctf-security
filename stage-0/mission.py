@@ -40,7 +40,7 @@ print("This is how the response data from Umbrella Investigate looks like: \n")
 pprint(response.json(), indent=4)
 
 #Add another call here, where you check the historical data for either the domain from the intro or your own domain and print it out in a readable format
-response = requests.get(f"{inv_url}/timeline/{domain}", headers=headers)
+response = requests.get(f"{inv_url}/pdns/timeline/{domain}", headers=headers)
 response.raise_for_status()
 print(f"This is the history of the domain reputation from {domain}:")
 pprint(response.json(), indent=4)
