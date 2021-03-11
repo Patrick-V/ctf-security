@@ -16,14 +16,15 @@ import env
 inv_url = env.UMBRELLA.get("inv_url")
 inv_token = env.UMBRELLA.get("inv_token")
 #Use a domain of your choice
-domain = "yourdomain.example"
+domain = "internetbadguys.com"
 
 #Construct the API request to the Umbrella Investigate API to query for the status of the domain
-url = 
-headers = 
-response = 
+url = f"{inv_url}/domains/categorization/{domain}?showLabels"
+headers = {"Authorization": f'Bearer {inv_token}'}
+response = requests.get(url, headers=headers)
 
 #And don't forget to check for errors that may have occured!
+response.raise_for_status()
 
 #Make sure the right data in the correct format is chosen, you can use print statements to debug your code
 domain_status = response.json()[domain]["status"]
@@ -39,5 +40,7 @@ print("This is how the response data from Umbrella Investigate looks like: \n")
 pprint(response.json(), indent=4)
 
 #Add another call here, where you check the historical data for either the domain from the intro or your own domain and print it out in a readable format
-
-
+response = requests.get(f"{inv_url}/timeline/{domain}", headers=headers)
+response.raise_for_status()
+print(f"This is the history of the domain reputation from {domain}:")
+pprint(response.json(), indent=4)
