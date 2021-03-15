@@ -1,4 +1,3 @@
-#TODO it should be printed out in a readable, report-like format with sanitized URLs
 #TODO Any URL that is returned as malicious should be added to a block list through the Umbrella API
 import requests
 import json
@@ -19,12 +18,12 @@ def show_domain_status(domain):
 
     domain_status = response.json()[domain]["status"]
     if domain_status == 1:
-        print(f"The domain {domain} is found CLEAN".replace('.', '(dot)'))
+        print(f"---\nThe domain {domain} is found CLEAN\n---".replace('.', '(dot)'))
     elif domain_status == -1:
-        print(f"The domain {domain} is found MALICIOUS".replace('.', '(dot)'))
+        print(f"---\nThe domain {domain} is found MALICIOUS\n---".replace('.', '(dot)'))
         
     elif domain_status == 0:
-        print(f"The domain {domain} is found UNDEFINED".replace('.', '(dot)'))
+        print(f"---\nThe domain {domain} is found UNDEFINED\n---".replace('.', '(dot)'))
      
 
 def show_historical_info(domain):
@@ -33,7 +32,7 @@ def show_historical_info(domain):
     response = requests.get(f"{inv_url}/pdns/timeline/{domain}", headers=headers)
     response.raise_for_status()
 
-    print(f"This is the history of the domain reputation from {domain}:")
+    print(f"---\nThis is the history of the domain reputation from {domain.replace('.','(dot)')}:\n---")
     pprint(response.json(), indent=4)
  
 
